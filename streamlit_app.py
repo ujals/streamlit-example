@@ -1,38 +1,57 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+# Function to display interesting facts
+def display_interesting_facts(years_remaining):
+    if years_remaining <= 1:
+        return "Make the most of your time! Every moment counts."
+    elif years_remaining <= 5:
+        return "Time flies! Make sure you continue to cherish every day."
+    elif years_remaining <= 10:
+        return "You still have plenty of time ahead. Keep pursuing your dreams!"
+    else:
+        return "Life is full of possibilities. Enjoy the journey!"
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Streamlit app
+def main():
+    st.title("Life Expectancy Calculator")
+    st.markdown("Calculate how much time you have left to live and discover interesting facts about it!")
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+    age = st.number_input("What is your current age?", min_value=0, step=1)
+    desired_age = st.number_input("To what age do you wish to live?", min_value=age, step=1)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    years_remaining = desired_age - age
+    days_remaining = years_remaining * 365
+    weeks_remaining = years_remaining * 52
+    months_remaining = years_remaining * 12
+    hours_remaining = years_remaining * 365 * 24
 
+    st.success(
+        f"You have **{days_remaining:,}** days, **{weeks_remaining:,}** weeks, **{months_remaining:,}** months, and **{hours_remaining:,}** hours remaining to live on this earth if you are really going to live for **{desired_age}** years"
+    )
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+    if years_remaining < 0:
+        st.warning("Congratulations! You have already exceeded your desired age.")
+    else:
+        st.write("")
+        st.info("Interesting Facts About Your Remaining Time:")
+        fact = display_interesting_facts(years_remaining)
+        st.write(f"🌟 {fact}")
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+    st.write("")
+    st.markdown("### 🚀 How to Make the Most of Your Remaining Time")
+    st.write("Life is a precious gift, and every moment counts. Here are some tips to help you make the most of your remaining time:")
 
-    points_per_turn = total_points / num_turns
+    st.write("1. **Set Meaningful Goals:** Identify what you want to achieve and work towards it.")
+    st.write("2. **Cherish Relationships:** Spend quality time with your loved ones and create lasting memories.")
+    st.write("3. **Embrace New Experiences:** Step out of your comfort zone and try new things.")
+    st.write("4. **Stay Healthy:** Take care of your physical and mental well-being.")
+    st.write("5. **Practice Gratitude:** Focus on the positive aspects of life and be grateful for every day.")
+    st.write("6. **Spread Kindness:** Make a positive impact on others through acts of kindness.")
+    st.write("7. **Learn and Grow:** Keep learning, growing, and evolving as a person.")
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+    st.write("")
+    st.markdown("### 🌍 Life is an Adventure")
+    st.write("Remember, life is an incredible adventure full of opportunities and challenges. Embrace each moment and create a life that you're proud of!")
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+if __name__ == "__main__":
+    main()
