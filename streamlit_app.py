@@ -52,6 +52,9 @@ def main():
     st.write("")
     st.markdown("### 🌍 Life is an Adventure")
     st.write("Remember, life is an incredible adventure full of opportunities and challenges. Embrace each moment and create a life that you're proud of!")
+    st.write("KSHETRIMAYUM UJAL SINGH :This is just a simple app developed on python with streamlit lib, feel free to edit and make it your own custom app ")
+    st.markdown("[GitHub Repository](https://github.com/ujals/streamlit-example)")
+
 
 if __name__ == "__main__":
     main()
