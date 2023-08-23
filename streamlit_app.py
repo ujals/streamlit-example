@@ -13,7 +13,7 @@ def display_interesting_facts(years_remaining):
 
 # Streamlit app
 def main():
-    st.title("Life Expectancy Calculator")
+    st.title("Life Expectancy Calculator for Human")
     st.markdown("Calculate how much time you have left to live and discover interesting facts about it!")
 
     age = st.number_input("What is your current age?", min_value=0, step=1)
